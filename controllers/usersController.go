@@ -61,6 +61,15 @@ func (uc *userController) Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{})
 }
 
+func (uc *userController) Logout(c *gin.Context) {
+	// Clear the JWT cookie by setting MaxAge to -1
+	c.SetSameSite(http.SameSiteLaxMode)
+	c.SetCookie("Authorization", "", -1, "", "", false, true)
+	c.JSON(http.StatusOK, gin.H{
+		"message": "logout successful",
+	})
+}
+
 func (uc *userController) UpdatePassword(c *gin.Context) {
 	var body struct {
 		Email        string

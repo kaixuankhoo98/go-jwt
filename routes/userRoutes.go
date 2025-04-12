@@ -16,6 +16,7 @@ func SetupUserRoutes(router *gin.Engine) {
 
 	router.POST("/signup", userController.SignUp)
 	router.POST("/login", userController.Login)
+	router.POST("/logout", userController.Logout)
 	router.GET("/validate", middleware.RequireAuth, userController.Validate)
 	router.POST("/updatePassword", middleware.RequireAuth, userController.UpdatePassword)
 }
