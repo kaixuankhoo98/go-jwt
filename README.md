@@ -47,3 +47,7 @@ This project is a backend service written in Go that implements JSON Web Token (
 - Use the `/login` endpoint to authenticate and receive a JWT.
 - Access protected routes by including the JWT in the `Authorization` header.
 - Protected routes are setup in the `routes/` folder
+
+## Documentation
+
+For detailed information about the data models and their relationships, see [Data Models Documentation](docs/DATA_MODELS.md).

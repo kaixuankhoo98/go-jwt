@@ -18,8 +18,9 @@ func NewUserController(userService services.IUserService) *userController {
 
 func (uc *userController) SignUp(c *gin.Context) {
 	var body struct {
-		Email    string
-		Password string
+		Email           string
+		Password        string
+		ConfirmPassword string
 	}
 
 	if c.ShouldBindJSON(&body) != nil {
@@ -27,7 +28,7 @@ func (uc *userController) SignUp(c *gin.Context) {
 		return
 	}
 
-	user, err := uc.userService.CreateUser(body.Email, body.Password)
+	user, err := uc.userService.CreateUser(body.Email, body.Password, body.ConfirmPassword)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -100,9 +101,10 @@ func (uc *userController) UpdatePassword(c *gin.Context) {
 func (uc *userController) Validate(c *gin.Context) {
 	user, _ := c.Get("user")
 
-	userId := user.(models.User).ID
+	userModel := user.(models.User)
 
 	c.JSON(http.StatusOK, gin.H{
-		"userId": userId,
+		"userId": userModel.ID,
+		// "username": userModel.UserName,
 	})
 }

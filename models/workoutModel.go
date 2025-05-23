@@ -1,14 +1,19 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type Workout struct {
 	ID        uint `gorm:"primaryKey"`
 	UserID    uint
-	User      User       `gorm:"foreignKey:UserID"`
-	StartTime time.Time  `gorm:"not null"`
-	EndTime   *time.Time `gorm:""`
-	Exercises []Exercise `gorm:"foreignKey:WorkoutID"`
+	User      User           `gorm:"foreignKey:UserID"`
+	StartTime time.Time      `gorm:"not null"`
+	EndTime   *time.Time     `gorm:""`
+	Exercises []Exercise     `gorm:"foreignKey:WorkoutID"`
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
 
 // Full Workout Includes Exercises and Sets

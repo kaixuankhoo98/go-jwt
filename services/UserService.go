@@ -23,9 +23,14 @@ func NewUserService(database *gorm.DB) IUserService {
 func (service *userService) CreateUser(
 	email string,
 	password string,
+	confirmPassword string,
 ) (*models.User, error) {
 	if email == "" {
 		return nil, errors.New("email must be present")
+	}
+
+	if password != confirmPassword {
+		return nil, errors.New("passwords must match")
 	}
 
 	// Hash password
